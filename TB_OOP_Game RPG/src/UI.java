@@ -97,7 +97,7 @@ public class UI {
         mainTextPanel.add(mainTextArea);
 
         choiceButtoPanel = new JPanel();
-        choiceButtoPanel.setBounds(250,350,300,150);
+        choiceButtoPanel.setBounds(150,350,400,150);
         choiceButtoPanel.setBackground(Color.black);
         choiceButtoPanel.setLayout(new GridLayout(4,1));
         window.add(choiceButtoPanel);

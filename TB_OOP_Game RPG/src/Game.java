@@ -8,9 +8,9 @@ public class Game {
     VisibilityManager vm = new VisibilityManager(ui);
     Story st = new Story(this, ui, vm);
 
+    String nextPosition1, nextPosition2, nextPosition3, nextPosition4;
+
     public static void main(String[] args) {
-        // Player player = new Player();
-        // player.getPlayerData();
         new Game();
 
     }
@@ -29,14 +29,19 @@ public class Game {
             switch (yourChoice) {
                 case "START":
                     vm.titleToTown();
+                    st.villageGate();
                     break;
                 case "c1":
+                st.pilihPosisi(nextPosition1);
                     break;
                 case "c2":
+                st.pilihPosisi(nextPosition2);
                     break;
                 case "c3":
+                st.pilihPosisi(nextPosition3);
                     break;
                 case "c4":
+                st.pilihPosisi(nextPosition4);
                     break;
 
             }
