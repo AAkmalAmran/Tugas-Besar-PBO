@@ -3,14 +3,13 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class Character {
+public class Player {
     private Connection con;
     private Statement stm;
     private int hp;
     private String weaponName;
     private String namePlayer;
-    private String idNPC;
-    private String nameNPC;
+    private int weaponDmg;
 
     // Koneksi Database
     String url = "jdbc:mysql://localhost:3306/gamerpg";
@@ -18,7 +17,7 @@ public class Character {
     String pass = "";
 
     // Constructor untuk membuat objek Character
-    public Character() {
+    public Player() {
         try {
             // Membuka koneksi ke database
             con = DriverManager.getConnection(url, user, pass);
@@ -91,6 +90,25 @@ public class Character {
         }
     }
 
+    // Fungsi untuk mengambil nama weapon berdasarkan id_player
+    public void setWeaponDamage(int idPlayer) {
+        try {
+            String query = "SELECT w.damage " +
+                    "FROM player p " +
+                    "JOIN weapon w ON p.id_weapon = w.id_weapon " +
+                    "WHERE p.id_player = " + idPlayer;
+            ResultSet rs = stm.executeQuery(query);
+
+            if (rs.next()) {
+                this.weaponDmg = rs.getInt("damage"); // Menyimpan nama weapon
+            }
+
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // Fungsi untuk mengambil nama player berdasarkan id_player
     public void setPlayerName(int idPlayer) {
         try {
@@ -102,6 +120,16 @@ public class Character {
             }
 
             rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Fungsi untuk memperbarui senjata player berdasarkan id_player
+    public void updateWeapon(int idPlayer, int idWeaponBaru) {
+        try {
+            String query = "UPDATE player SET id_weapon = " + idWeaponBaru + " WHERE id_player = " + idPlayer;
+            stm.executeUpdate(query);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,62 +150,8 @@ public class Character {
         return this.hp;
     }
 
-    // ==================================================NPC==================================================
-
-    // Fungsi untuk mengambil data hp berdasarkan id_npc
-    // public void setHp(String idNPC) {
-    // this.idNPC = idNPC;
-    // try {
-    // String query = "SELECT hp FROM npc WHERE id_npc = " + idNPC;
-    // ResultSet rs = stm.executeQuery(query);
-
-    // if (rs.next()) {
-    // this.hp = rs.getInt("hp"); // Set hp berdasarkan data dari database
-    // }
-
-    // rs.close();
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // }
-
-    // Fungsi untuk mengambil nama NPC berdasarkan id_npc
-    public void setNpcName(int idNPC) {
-        try {
-            String query = "SELECT nama_npc FROM npc WHERE id_npc = " + idNPC;
-            ResultSet rs = stm.executeQuery(query);
-
-            if (rs.next()) {
-                this.nameNPC = rs.getString("nama_npc"); // Set hp berdasarkan data dari database
-            }
-
-            rs.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public int getWeaponDamage() {
+        return this.weaponDmg;
     }
 
-    // Fungsi untuk mengambil nama weapon berdasarkan id_npc
-    // public void setWeaponName(Short idNPC) {
-    // try {
-    // String query = "SELECT w.weapon_name " +
-    // "FROM npc n " +
-    // "JOIN weapon w ON n.id_weapon = w.id_weapon " +
-    // "WHERE n.id_npc = " + idNPC;
-    // ResultSet rs = stm.executeQuery(query);
-
-    // if (rs.next()) {
-    // this.weaponName = rs.getString("weapon_name"); // Menyimpan nama weapon
-    // }
-
-    // rs.close();
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // }
-
-    // Getter untuk nama NPC
-    public String getNpcName() {
-        return this.nameNPC;
-    }
 }

@@ -3,7 +3,8 @@ public class Story {
     UI ui;
     VisibilityManager vm;
     String nameNPC;
-    Character chara = new Character();
+    Player player = new Player();
+    Npc npc = new Npc();
 
     public Story(Game g, UI userInterface, VisibilityManager vManager) {
         game = g;
@@ -12,13 +13,13 @@ public class Story {
     }
 
     public void defaultSetup() {
-        chara.setHp(20);
-        int hpPlayer = chara.getHp();
+        player.setHp(20);
+        int hpPlayer = player.getHp();
 
         ui.hpNumberLabel.setText("" + hpPlayer);
 
-        chara.setWeaponName(hpPlayer);
-        String weaponPlayer = chara.getWeaponName();
+        player.setWeaponName(20);
+        String weaponPlayer = player.getWeaponName();
         ui.weaponNameLabel.setText(weaponPlayer);
 
     }
@@ -52,6 +53,12 @@ public class Story {
             case "helpVillager":
                 helpVillager();
                 break;
+            case "goblinHunt":
+                goblinHunt();
+                break;
+            case "playerAttack":
+                playerAttack();
+                break;
 
         }
     }
@@ -71,59 +78,72 @@ public class Story {
     }
 
     public void ngobrolPenjaga() {
-        chara.setNpcName(1);
-        String nameNPC = chara.getNpcName();
+        npc.setNpcName(1);
+        String nameNPC = npc.getNpcName();
 
-        chara.setPlayerName(20);
-        String namePlayer = chara.getPlayerName();
-        int hpPlayer = chara.getHp();
-        chara.setHp(hpPlayer);
+        player.setPlayerName(20);
+        String namePlayer = player.getPlayerName();
+        // int hpPlayer = player.getHp();
+        // player.setHp(hpPlayer);
+        ui.mainTextArea.setText(nameNPC + ": Berhenti! Siapa kamu? Ada keperluan apa di kerajaan Jawa?");
+        ui.choice1.setText("Hai, namaku " + namePlayer + ". Saya datang untuk mengambil misi.");
+        ui.choice2.setText("Hah!? Kau tidak kenal siapa aku?");
+        ui.choice3.setText("(Menonjok Penjaga)");
+        ui.choice4.setText("");
 
-        if (hpPlayer == 20) {
-            ui.mainTextArea.setText(nameNPC + ": Berhenti! Siapa kamu? Ada keperluan apa di kerajaan Jawa?");
-            ui.choice1.setText("Hai, namaku " + namePlayer + ". Saya datang untuk mengambil misi.");
-            ui.choice2.setText("Hah!? Kau tidak kenal siapa aku?");
-            ui.choice3.setText("(Menonjok Penjaga)");
-            ui.choice4.setText("");
-    
-            game.nextPosition1 = "guildPetualang";
-            game.nextPosition2 = "crossRoad";
-            game.nextPosition3 = "attackPenjaga";
-            game.nextPosition4 = "";
-        }else if (hpPlayer > 20) {
-            ui.mainTextArea.setText(nameNPC + ": Oh kau sudah kembali. Bagaimana misinya?");
-            ui.choice1.setText("Misi apa?");
-            ui.choice2.setText("(Tidak menghiraukan)");
-            ui.choice3.setText("(Menyerang Penjaga)");
-            ui.choice4.setText("");
-    
-            game.nextPosition1 = "cityGate";
-            game.nextPosition2 = "guildPetualang";
-            game.nextPosition3 = "attackPenjaga";
-            game.nextPosition4 = "";
-        }else if (hpPlayer < 20) {
-            ui.mainTextArea.setText(nameNPC + ": Kau kembali lagi hah!?");
-            ui.choice1.setText("(Menyerang Penjaga)");
-            ui.choice2.setText("Maafkan aku");
-            ui.choice3.setText("");
-            ui.choice4.setText("");
-    
-            game.nextPosition1 = "guildPetualang";
-            game.nextPosition2 = "crossRoad";
-            game.nextPosition3 = "attackPenjaga";
-            game.nextPosition4 = "";
-        }
+        game.nextPosition1 = "guildPetualang";
+        game.nextPosition2 = "crossRoad";
+        game.nextPosition3 = "attackPenjaga";
+        game.nextPosition4 = "";
+
+        // if (hpPlayer == 20) {
+        // ui.mainTextArea.setText(nameNPC + ": Berhenti! Siapa kamu? Ada keperluan apa
+        // di kerajaan Jawa?");
+        // ui.choice1.setText("Hai, namaku " + namePlayer + ". Saya datang untuk
+        // mengambil misi.");
+        // ui.choice2.setText("Hah!? Kau tidak kenal siapa aku?");
+        // ui.choice3.setText("(Menonjok Penjaga)");
+        // ui.choice4.setText("");
+
+        // game.nextPosition1 = "guildPetualang";
+        // game.nextPosition2 = "crossRoad";
+        // game.nextPosition3 = "attackPenjaga";
+        // game.nextPosition4 = "";
+        // }else if (hpPlayer > 20) {
+        // ui.mainTextArea.setText(nameNPC + ": Oh kau sudah kembali. Bagaimana
+        // misinya?");
+        // ui.choice1.setText("Misi apa?");
+        // ui.choice2.setText("(Tidak menghiraukan)");
+        // ui.choice3.setText("(Menyerang Penjaga)");
+        // ui.choice4.setText("");
+
+        // game.nextPosition1 = "cityGate";
+        // game.nextPosition2 = "guildPetualang";
+        // game.nextPosition3 = "attackPenjaga";
+        // game.nextPosition4 = "";
+        // }else if (hpPlayer < 20) {
+        // ui.mainTextArea.setText(nameNPC + ": Kau kembali lagi hah!?");
+        // ui.choice1.setText("(Menyerang Penjaga)");
+        // ui.choice2.setText("Maafkan aku");
+        // ui.choice3.setText("");
+        // ui.choice4.setText("");
+
+        // game.nextPosition1 = "guildPetualang";
+        // game.nextPosition2 = "crossRoad";
+        // game.nextPosition3 = "attackPenjaga";
+        // game.nextPosition4 = "";
+        // }
     }
 
     public void attackPenjaga() {
-        chara.setNpcName(1);
-        String nameNPC = chara.getNpcName();
+        npc.setNpcName(1);
+        String penjaga = npc.getNpcName();
 
         ui.mainTextArea.setText(
-                nameNPC + ": Apa kau sudah gila? \n(Kamu mendapat 7 damage)");
+                penjaga + ": Apa kau sudah gila? \n(Kamu mendapat 7 damage)");
 
-        chara.setHp(20, 7);
-        int hpPlayer = chara.getHp();
+        player.setHp(20, 7);
+        int hpPlayer = player.getHp();
 
         ui.hpNumberLabel.setText("" + hpPlayer);
 
@@ -144,12 +164,12 @@ public class Story {
         ui.choice1.setText("Pergi ke arah Utara");
         ui.choice2.setText("Pergi ke arah Barat");
         ui.choice3.setText("Pergi ke arah Timur");
-        ui.choice4.setText("Kembali ke gerbang");
+        ui.choice4.setText("");
 
         game.nextPosition1 = "utara";
         game.nextPosition2 = "barat";
         game.nextPosition3 = "timur";
-        game.nextPosition4 = "cityGate";
+        game.nextPosition4 = "";
     }
 
     public void guildPetualang() {
@@ -158,7 +178,7 @@ public class Story {
         ui.choice1.setText("Berburu Goblin");
         ui.choice2.setText("Menolong warga desa");
         ui.choice3.setText("Memetik bunga");
-        ui.choice4.setText("Tidak peduli");
+        ui.choice4.setText("");
 
         game.nextPosition1 = "utara";
         game.nextPosition2 = "helpVillager";
@@ -167,16 +187,20 @@ public class Story {
     }
 
     public void utara() {
+        npc.setNpcName(7);
+        String goblin = npc.getNpcName();
+
         ui.mainTextArea.setText(
-                "Kamu melihat ada goblin yang sedang menikmati makanannya\n\nApa yang akan kamu lakukan?");
-        ui.choice1.setText("Menyerang goblin");
-        ui.choice2.setText("Kembali ke Persimpangan jalan");
+                "Kamu pergi ke arah utara. \n\nSesampainya disana, kamu melihat ada " + goblin
+                        + " yang sedang menikmati makanannya\n\nApa yang akan kamu lakukan?");
+        ui.choice1.setText("Bertarung melawan " + goblin);
+        ui.choice2.setText("Lari");
         ui.choice3.setText("");
         ui.choice4.setText("");
 
         game.nextPosition1 = "goblinHunt";
         game.nextPosition2 = "crossRoad";
-        game.nextPosition3 = "timur";
+        game.nextPosition3 = "";
         game.nextPosition4 = "";
     }
 
@@ -184,21 +208,76 @@ public class Story {
         ui.mainTextArea.setText(
                 "Kamu berada di tepi sungai.\n\nApa yang akan kamu lakukan?");
         ui.choice1.setText("Mandi");
-        ui.choice2.setText("Minum");
-        ui.choice3.setText("Bunuh Diri");
+        ui.choice2.setText("Bunuh Diri");
+        ui.choice3.setText("");
         ui.choice4.setText("");
 
         game.nextPosition1 = "barat";
-        game.nextPosition2 = "barat";
-        game.nextPosition3 = "bunuhDiri";
+        game.nextPosition2 = "bunuhDiri";
+        game.nextPosition3 = "";
         game.nextPosition4 = "";
     }
 
     public void timur() {
+        ui.mainTextArea.setText(
+                "Kamu berjalan ke dalam hutan. Di depan, kamu melihat sebuah Long Sword tertancap di tanah.\n\n(Kamu mendapatkan Long Sword)");
 
+        player.updateWeapon(20, 2);
+        String weaponPlayer = player.getWeaponName();
+        ui.weaponNameLabel.setText(weaponPlayer);
+
+        ui.choice1.setText("Pergi ke arah Utara");
+        ui.choice2.setText("kembali");
+        ui.choice3.setText("");
+        ui.choice4.setText("");
+
+        game.nextPosition1 = "utara";
+        game.nextPosition2 = "crossRoad";
+        game.nextPosition3 = "";
+        game.nextPosition4 = "";
     }
 
     public void helpVillager() {
+
+    }
+
+    public void goblinHunt() {
+        npc.setNpcHp(7);
+        int npc_hp = npc.getNpcHp();
+
+        npc.setNpcName(7);
+        String npc_name = npc.getNpcName();
+
+        ui.mainTextArea.setText(
+                npc_name + " mengeluarkan senjatanya\n\n" + npc_name + ": " + npc_hp + "\n\nApa tindakan mu?");
+        ui.choice1.setText("Serang");
+        ui.choice2.setText("Lari");
+        ui.choice3.setText("");
+        ui.choice4.setText("");
+
+        game.nextPosition1 = "playerAttack";
+        game.nextPosition2 = "crossRoad";
+        game.nextPosition3 = "";
+        game.nextPosition4 = "";
+    }
+
+    public void playerAttack() {
+        npc.setNpcName(7);
+        String npc_name = npc.getNpcName();
+        int playerDamage = new java.util.Random().nextInt(player.getWeaponDamage());
+
+        ui.mainTextArea.setText(
+                "Kamu menyerang " + npc_name + ", kerusakan serangan mu sebesar " + playerDamage);
+        npc.setNpcHp(7, playerDamage);
+        ui.choice1.setText("Serang");
+        ui.choice2.setText("Lari");
+        ui.choice3.setText("");
+        ui.choice4.setText("");
+
+        game.nextPosition1 = "playerAttack";
+        game.nextPosition2 = "crossRoad";
+        game.nextPosition3 = "";
+        game.nextPosition4 = "";
 
     }
 }
