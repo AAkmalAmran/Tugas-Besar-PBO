@@ -164,12 +164,12 @@ public class Story {
         ui.choice1.setText("Pergi ke arah Utara");
         ui.choice2.setText("Pergi ke arah Barat");
         ui.choice3.setText("Pergi ke arah Timur");
-        ui.choice4.setText("");
+        ui.choice4.setText("Kembali");
 
         game.nextPosition1 = "utara";
         game.nextPosition2 = "barat";
         game.nextPosition3 = "timur";
-        game.nextPosition4 = "";
+        game.nextPosition4 = "cityGate";
     }
 
     public void guildPetualang() {
@@ -182,7 +182,7 @@ public class Story {
 
         game.nextPosition1 = "utara";
         game.nextPosition2 = "helpVillager";
-        game.nextPosition3 = "timur";
+        game.nextPosition3 = "barat";
         game.nextPosition4 = "";
     }
 
@@ -206,14 +206,14 @@ public class Story {
 
     public void barat() {
         ui.mainTextArea.setText(
-                "Kamu berada di tepi sungai.\n\nApa yang akan kamu lakukan?");
-        ui.choice1.setText("Mandi");
-        ui.choice2.setText("Bunuh Diri");
+                "");
+        ui.choice1.setText("");
+        ui.choice2.setText("");
         ui.choice3.setText("");
         ui.choice4.setText("");
 
-        game.nextPosition1 = "barat";
-        game.nextPosition2 = "bunuhDiri";
+        game.nextPosition1 = "";
+        game.nextPosition2 = "";
         game.nextPosition3 = "";
         game.nextPosition4 = "";
     }
