@@ -17,7 +17,7 @@ public class Character {
     String user = "root";
     String pass = "";
 
-    // Constructor untuk membuat objek Player
+    // Constructor untuk membuat objek Character
     public Character() {
         try {
             // Membuka koneksi ke database
@@ -36,6 +36,34 @@ public class Character {
 
             if (rs.next()) {
                 this.hp = rs.getInt("hp"); // Set hp berdasarkan data dari database
+            }
+
+            rs.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Fungsi untuk mengurangi HP player
+    public void setHp(int idPlayer, int dmg) {
+        try {
+            String query = "SELECT hp FROM player WHERE id_player = " + idPlayer;
+            ResultSet rs = stm.executeQuery(query);
+
+            if (rs.next()) {
+                this.hp = rs.getInt("hp");
+
+                // Mengurangi HP player berdasarkan damage
+                this.hp -= dmg;
+
+                // Cek apakah HP player tidak menjadi negatif
+                if (this.hp < 0) {
+                    this.hp = 0; // Jika HP negatif, set menjadi 0
+                }
+
+                // Update HP player ke database setelah dikurangi
+                String updateQuery = "UPDATE player SET hp = " + this.hp + " WHERE id_player = " + idPlayer;
+                stm.executeUpdate(updateQuery);
             }
 
             rs.close();
@@ -98,19 +126,19 @@ public class Character {
 
     // Fungsi untuk mengambil data hp berdasarkan id_npc
     // public void setHp(String idNPC) {
-    //     this.idNPC = idNPC;
-    //     try {
-    //         String query = "SELECT hp FROM npc WHERE id_npc = " + idNPC;
-    //         ResultSet rs = stm.executeQuery(query);
+    // this.idNPC = idNPC;
+    // try {
+    // String query = "SELECT hp FROM npc WHERE id_npc = " + idNPC;
+    // ResultSet rs = stm.executeQuery(query);
 
-    //         if (rs.next()) {
-    //             this.hp = rs.getInt("hp"); // Set hp berdasarkan data dari database
-    //         }
+    // if (rs.next()) {
+    // this.hp = rs.getInt("hp"); // Set hp berdasarkan data dari database
+    // }
 
-    //         rs.close();
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+    // rs.close();
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
     // }
 
     // Fungsi untuk mengambil nama NPC berdasarkan id_npc
@@ -131,21 +159,21 @@ public class Character {
 
     // Fungsi untuk mengambil nama weapon berdasarkan id_npc
     // public void setWeaponName(Short idNPC) {
-    //     try {
-    //         String query = "SELECT w.weapon_name " +
-    //                 "FROM npc n " +
-    //                 "JOIN weapon w ON n.id_weapon = w.id_weapon " +
-    //                 "WHERE n.id_npc = " + idNPC;
-    //         ResultSet rs = stm.executeQuery(query);
+    // try {
+    // String query = "SELECT w.weapon_name " +
+    // "FROM npc n " +
+    // "JOIN weapon w ON n.id_weapon = w.id_weapon " +
+    // "WHERE n.id_npc = " + idNPC;
+    // ResultSet rs = stm.executeQuery(query);
 
-    //         if (rs.next()) {
-    //             this.weaponName = rs.getString("weapon_name"); // Menyimpan nama weapon
-    //         }
+    // if (rs.next()) {
+    // this.weaponName = rs.getString("weapon_name"); // Menyimpan nama weapon
+    // }
 
-    //         rs.close();
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+    // rs.close();
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
     // }
 
     // Getter untuk nama NPC
