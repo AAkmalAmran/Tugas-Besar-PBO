@@ -26,7 +26,7 @@ public class UI {
 
         // WINDOW
         window = new JFrame();
-        window.setSize(800, 600);
+        window.setSize(900, 700);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.getContentPane().setBackground(Color.BLACK);
         window.setLayout(null);
@@ -97,7 +97,7 @@ public class UI {
         mainTextPanel.add(mainTextArea);
 
         choiceButtoPanel = new JPanel();
-        choiceButtoPanel.setBounds(150,350,400,150);
+        choiceButtoPanel.setBounds(50,350,700,150);
         choiceButtoPanel.setBackground(Color.black);
         choiceButtoPanel.setLayout(new GridLayout(4,1));
         window.add(choiceButtoPanel);
@@ -111,31 +111,31 @@ public class UI {
         choice1.setActionCommand("c1");
         choiceButtoPanel.add(choice1);
 
-        choice2 = new JButton("choice 1");
+        choice2 = new JButton("choice 2");
         choice2.setBackground(Color.black);
         choice2.setForeground(Color.white);
         choice2.setFont(normalFont);
         choice2.setFocusPainted(false);
         choice2.addActionListener(cHandler);
-        choice2.setActionCommand("c1");
+        choice2.setActionCommand("c2");
         choiceButtoPanel.add(choice2);
 
-        choice3 = new JButton("choice 1");
+        choice3 = new JButton("choice 3");
         choice3.setBackground(Color.black);
         choice3.setForeground(Color.white);
         choice3.setFont(normalFont);
         choice3.setFocusPainted(false);
         choice3.addActionListener(cHandler);
-        choice3.setActionCommand("c1");
+        choice3.setActionCommand("c3");
         choiceButtoPanel.add(choice3);
 
-        choice4 = new JButton("choice 1");
+        choice4 = new JButton("choice 4");
         choice4.setBackground(Color.black);
         choice4.setForeground(Color.white);
         choice4.setFont(normalFont);
         choice4.setFocusPainted(false);
         choice4.addActionListener(cHandler);
-        choice4.setActionCommand("c1");
+        choice4.setActionCommand("c4");
         choiceButtoPanel.add(choice4);
 
 

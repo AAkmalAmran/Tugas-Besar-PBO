@@ -19,11 +19,11 @@ public class VisibilityManager {
     }
 
     public void titleToTown() {
-        // Show title Screen
+        // Hide title Screen
         ui.titleNamePanel.setVisible(false);
         ui.startButtonPanel.setVisible(false);
 
-        // Hide Game Screen
+        // Show Game Screen
         ui.mainTextPanel.setVisible(true);
         ui.choiceButtoPanel.setVisible(true);
         ui.playerPanel.setVisible(true);

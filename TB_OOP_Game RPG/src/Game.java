@@ -29,7 +29,7 @@ public class Game {
             switch (yourChoice) {
                 case "START":
                     vm.titleToTown();
-                    st.villageGate();
+                    st.cityGate();
                     break;
                 case "c1":
                 st.pilihPosisi(nextPosition1);
