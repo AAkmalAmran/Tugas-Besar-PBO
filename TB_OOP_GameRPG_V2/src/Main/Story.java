@@ -11,6 +11,7 @@ public class Story {
     Player player = new Player();
     Npc npc = new Npc();
     public int longsword;
+    Monster currentMonster;
 
     int cincinBerlian;
 
@@ -67,9 +68,6 @@ public class Story {
             case "ending2":
                 ending2();
                 break;
-            case "ngobrolPenjaga2":
-                ngobrolPenjaga2();
-                break;
             case "toTitle":
                 toTitle();
                 break;
@@ -100,53 +98,6 @@ public class Story {
         game.nextPosition4 = " ";
     }
 
-    public void ngobrolPenjaga() {
-        npc.setNpcName(1);
-        String nameNPC = npc.getNpcName();
-
-        // Ngambil nama player
-        player.setPlayerName("Link");
-        String playerName = player.getPlayerName();
-
-        if (player.hp >= 20) {
-            ui.mainTextArea.setText(nameNPC + ": Berhenti! Siapa kamu? Ada keperluan apa di kerajaan Jawa?");
-            ui.choice1.setText("Hai, namaku " + playerName + ". Saya ingin menemui pujaan hati saya.");
-            ui.choice2.setText("Hah!? Kau tidak kenal siapa aku?");
-            ui.choice3.setText("(Menonjok Penjaga)");
-            ui.choice4.setText("");
-
-            game.nextPosition1 = "ngobrolPenjaga2";
-            game.nextPosition2 = "crossRoad";
-            game.nextPosition3 = "attackPenjaga";
-            game.nextPosition4 = "";
-        } else if (player.hp == 5) {
-            ui.mainTextArea.setText(
-                    nameNPC + ": Oh, Punya nyali juga kamu buat kembali\n\n(Penjaga memasukkanmu ke penjara)");
-
-            ui.choice1.setText(">");
-            ui.choice2.setText("");
-            ui.choice3.setText("");
-            ui.choice4.setText("");
-
-            game.nextPosition1 = "ending1";
-            game.nextPosition2 = "";
-            game.nextPosition3 = "";
-            game.nextPosition4 = "";
-        } else if (cincinBerlian == 1) {
-            ui.mainTextArea.setText(nameNPC + ": Apa kamu berhasil?");
-            ui.choice1.setText("Memperlihatkan cincin berlian");
-            ui.choice2.setText("");
-            ui.choice3.setText("");
-            ui.choice4.setText("");
-
-            game.nextPosition1 = "ngobrolPenjaga2";
-            game.nextPosition2 = "";
-            game.nextPosition3 = "";
-            game.nextPosition4 = "";
-        }
-
-    }
-
     public void ending1() {
         ui.mainTextArea.setText("Kamu menghabiskan masa hidupmu di penjara kumuh\n\n<TAMAT>");
         ui.choice1.setText("To title screen");
@@ -167,11 +118,11 @@ public class Story {
         game.nextPosition1 = "toTitle";
     }
 
-    public void ngobrolPenjaga2() {
-
+    public void ngobrolPenjaga() {
+        npc.setNpcName(1);
+        String nameNPC = npc.getNpcName();
         if (cincinBerlian == 0) {
-            npc.setNpcName(1);
-            String nameNPC = npc.getNpcName();
+
             ui.mainTextArea.setText(nameNPC
                     + ": Jika ingin masuk ke dalam kerajaan. Kamu harus membunuh Goblin yang ada di hutan bagian utara");
             ui.choice1.setText("Baiklah");
@@ -229,7 +180,7 @@ public class Story {
             }
         } else if (cincinBerlian == 1) {
             ui.mainTextArea.setText(
-                    penjaga + ": Apa maksudmu HAH!?\n(Penjaga Membunuhmu)\n\n<GAME OVER>");
+                    penjaga + ": Apa maksudmu HAH!?\n\n(Penjaga Membunuhmu)");
 
             player.hp = player.hp - 1000;
             ui.hpNumberLabel.setText("" + player.hp);
@@ -261,12 +212,16 @@ public class Story {
     }
 
     public void utara() {
-        Monster nama_Monster = new Monster(3);
-        String monster = nama_Monster.getMonsterName();
+
+        currentMonster = new Monster(3);
+
+        String monster = currentMonster.getMonsterName();
+        int monster_hp = currentMonster.getMonsterHP();
 
         ui.mainTextArea.setText(
                 "Kamu pergi ke arah utara. \n\nSesampainya disana, kamu melihat ada " + monster
-                        + " yang sedang menikmati makanannya");
+                        + " yang sedang menikmati makanannya\n\n"
+                        + monster + " HP: " + monster_hp + "\nApa yang akan kamu lakukan?");
 
         ui.choice1.setText("Bertarung melawan " + monster);
         ui.choice2.setText("Lari");
@@ -281,13 +236,13 @@ public class Story {
 
     public void barat() {
         ui.mainTextArea.setText(
-                "");
-        ui.choice1.setText("");
+                "Tidak ada apa-apa disini");
+        ui.choice1.setText("Kembali");
         ui.choice2.setText("");
         ui.choice3.setText("");
         ui.choice4.setText("");
 
-        game.nextPosition1 = "";
+        game.nextPosition1 = "crossRoad";
         game.nextPosition2 = "";
         game.nextPosition3 = "";
         game.nextPosition4 = "";
@@ -335,12 +290,9 @@ public class Story {
 
     }
 
-    // ===========================================================================HP
-    // Monster e bermasalah===============================================
     public void fight() {
-        Monster Monster = new Monster(3);
-        String nama_monster = Monster.getMonsterName();
-        int monster_hp = Monster.getMonsterHP();
+        String nama_monster = currentMonster.getMonsterName();
+        int monster_hp = currentMonster.getMonsterHP();
 
         ui.mainTextArea.setText(nama_monster + ": " + monster_hp + "\n\nApa yang akan kamu lakukan?");
 
@@ -355,43 +307,33 @@ public class Story {
         game.nextPosition4 = "";
     }
 
-    // HP Monster e bermasalah
     public void playerAttack() {
-        Monster Monster = new Monster(3);
-        String nama_monster = Monster.getMonsterName();
-        int monster_hp = Monster.getMonsterHP();
+        String nama_monster = currentMonster.getMonsterName();
+        int monster_hp = currentMonster.getMonsterHP();
 
         int playerDamage = new java.util.Random().nextInt(player.currentWeapon.damage);
-        monster_hp = monster_hp - playerDamage;
+        currentMonster.monsterHP(monster_hp - playerDamage); // Update HP monster
+        monster_hp = currentMonster.getMonsterHP(); // Ambil HP monster yang baru
 
         ui.mainTextArea.setText(
-                "Kamu menyerang " + nama_monster + ", kerusakan serangan mu sebesar " + playerDamage + "\n\n"
-                        + nama_monster + " HP:" + monster_hp);
+                "Kamu menyerang " + nama_monster + ", kerusakan seranganmu sebesar " + playerDamage + "\n\n"
+                        + nama_monster + " HP: " + monster_hp);
 
         ui.choice1.setText(">");
         ui.choice2.setText("");
         ui.choice3.setText("");
         ui.choice4.setText("");
 
-        //monster_hp ne
         if (monster_hp > 0) {
             game.nextPosition1 = "monsterAttack";
-            game.nextPosition2 = "";
-            game.nextPosition3 = "";
-            game.nextPosition4 = "";
-        } else if (monster_hp < 1) {
-            game.nextPosition1 = "Win";
-            game.nextPosition2 = "";
-            game.nextPosition3 = "";
-            game.nextPosition4 = "";
+        } else {
+            game.nextPosition1 = "win";
         }
-
     }
 
     public void monsterAttack() {
-        Monster Monster = new Monster(3);
-        String nama_monster = Monster.getMonsterName();
-        int monster_attack = Monster.getMonsterDMG();
+        String nama_monster = currentMonster.getMonsterName();
+        int monster_attack = currentMonster.getMonsterDMG();
 
         int monsterDamage = new java.util.Random().nextInt(monster_attack);
         player.hp = player.hp - monsterDamage;
@@ -407,33 +349,24 @@ public class Story {
 
         if (player.hp > 0) {
             game.nextPosition1 = "playerAttack";
-            game.nextPosition2 = "";
-            game.nextPosition3 = "";
-            game.nextPosition4 = "";
-        } else if (player.hp < 1) {
+        } else {
             game.nextPosition1 = "lose";
-            game.nextPosition2 = "";
-            game.nextPosition3 = "";
-            game.nextPosition4 = "";
         }
-
     }
 
     public void win() {
-        Monster Monster = new Monster(3);
-        String nama_monster = Monster.getMonsterName();
+        String nama_monster = currentMonster.getMonsterName();
         ui.mainTextArea.setText("Kamu mengalahkan " + nama_monster + "!\n\n(Kamu mendapatkan cincin berlian!)");
 
         cincinBerlian = 1;
+        currentMonster = null; // Reset monster untuk pertempuran berikutnya
+
         ui.choice1.setText("Pergi ke Timur");
         ui.choice2.setText("");
         ui.choice3.setText("");
         ui.choice4.setText("");
 
         game.nextPosition1 = "crossRoad";
-        game.nextPosition2 = "";
-        game.nextPosition3 = "";
-        game.nextPosition4 = "";
     }
 
     public void lose() {

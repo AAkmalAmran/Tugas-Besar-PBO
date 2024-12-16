@@ -9,8 +9,6 @@ public class Monster extends SuperMonster {
     private Connection con;
     private Statement stm;
 
-
-
     // Koneksi Database
     String url = "jdbc:mysql://localhost:3306/tubespbo";
     String user = "root";

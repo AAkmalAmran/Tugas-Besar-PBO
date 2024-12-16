@@ -21,21 +21,6 @@ public class VisibilityManager {
 
     }
 
-    public void showCreatePlayer() {
-        // Hide title Screen
-        ui.titleNamePanel.setVisible(false);
-        ui.startButtonPanel.setVisible(false);
-
-        // Hide Game Screen
-        ui.mainTextPanel.setVisible(false);
-        ui.choiceButtoPanel.setVisible(false);
-        ui.playerPanel.setVisible(false);
-
-        //Show Create Player Screen
-        ui.createCharacterPanel.setVisible(true);
-        
-    }
-
     public void titleToTown() {
         // Hide title Screen
         ui.titleNamePanel.setVisible(false);
@@ -47,4 +32,5 @@ public class VisibilityManager {
         ui.playerPanel.setVisible(true);
 
     }
+
 }

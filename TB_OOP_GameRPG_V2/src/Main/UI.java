@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -15,14 +16,17 @@ import java.awt.event.ActionListener;
 
 public class UI {
     JFrame window;
-    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtoPanel, playerPanel, createCharacterPanel, createButtonPanel, monsterPanel;
-    JLabel titleNameLabel, hpLabel, hpNumberLabel, weaponLabel, weaponNameLabel, createCharacterLabel, selectWeaponLabel, hpMonsterLabel,hpNumberMonsterLabel;
+    JPanel titleNamePanel, startButtonPanel, mainTextPanel, choiceButtoPanel, playerPanel, createCharacterPanel,
+            createButtonPanel, monsterPanel;
+    JLabel titleNameLabel, hpLabel, hpNumberLabel, weaponLabel, weaponNameLabel, createCharacterLabel,
+            selectWeaponLabel, hpMonsterLabel, hpNumberMonsterLabel;
     JButton starButton, choice1, choice2, choice3, choice4, createButton;
     JTextArea mainTextArea;
     Font titleFont = new Font("Times New Roman", Font.PLAIN, 90);
     Font normalFont = new Font("Times New Roman", Font.PLAIN, 26);
     JTextField characterNameField;
     JComboBox<String> weaponComboBox;
+    Player player = new Player();
 
     public void createUI(ActionListener cHandler) {
 
@@ -37,6 +41,7 @@ public class UI {
         titleNamePanel = new JPanel();
         titleNamePanel.setBounds(100, 100, 600, 500);
         titleNamePanel.setBackground(Color.black);
+
         titleNameLabel = new JLabel("GAME RPG");
         titleNameLabel.setForeground(Color.white);
         titleNameLabel.setFont(titleFont);
@@ -57,33 +62,7 @@ public class UI {
         window.add(titleNamePanel);
         window.add(startButtonPanel);
 
-        //CREATE CHARACTER
-        // createCharacterPanel = new JPanel();
-        // createCharacterPanel.setBounds(100, 100, 600, 500);
-        // createCharacterPanel.setBackground(Color.black);
-        // createCharacterLabel = new JLabel("CREATE CHARACTER");
-        // createCharacterLabel.setForeground(Color.white);
-        // createCharacterLabel.setFont(titleFont);
-        // createCharacterPanel.add(titleNameLabel);
-
-
-        // titleNameLabel = new JLabel("Enter Character Name:");
-        // titleNameLabel.setForeground(Color.WHITE);
-        // titleNameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        // titleNameLabel.setBounds(30, 70, 180, 30);
-        // createCharacterPanel.add(titleNameLabel);
-
-        // characterNameField = new JTextField();
-        // characterNameField.setBounds(30, 110, 340, 30);
-        // createCharacterPanel.add(characterNameField);
-
-        // selectWeaponLabel = new JLabel("Select Weapon:");
-        // selectWeaponLabel.setForeground(Color.WHITE);
-        // selectWeaponLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        // selectWeaponLabel.setBounds(30, 160, 120, 30);
-        // createCharacterPanel.add(selectWeaponLabel);
-
-        //GAME SCREEN
+        // GAME SCREEN
         mainTextPanel = new JPanel();
         mainTextPanel.setBounds(100, 100, 600, 500);
         mainTextPanel.setBackground(Color.black);
@@ -100,9 +79,9 @@ public class UI {
         mainTextPanel.add(mainTextArea);
 
         choiceButtoPanel = new JPanel();
-        choiceButtoPanel.setBounds(50,350,700,150);
+        choiceButtoPanel.setBounds(50, 350, 700, 150);
         choiceButtoPanel.setBackground(Color.black);
-        choiceButtoPanel.setLayout(new GridLayout(4,1));
+        choiceButtoPanel.setLayout(new GridLayout(4, 1));
         window.add(choiceButtoPanel);
 
         choice1 = new JButton("choice 1");
@@ -141,11 +120,10 @@ public class UI {
         choice4.setActionCommand("c4");
         choiceButtoPanel.add(choice4);
 
-
         playerPanel = new JPanel();
-        playerPanel.setBounds(100,15,600,50);
+        playerPanel.setBounds(100, 15, 600, 50);
         playerPanel.setBackground(Color.black);
-        playerPanel.setLayout(new GridLayout(1,4));
+        playerPanel.setLayout(new GridLayout(1, 4));
         window.add(playerPanel);
 
         hpLabel = new JLabel("HP:");
@@ -166,8 +144,7 @@ public class UI {
         weaponNameLabel = new JLabel();
         weaponNameLabel.setFont(normalFont);
         weaponNameLabel.setForeground(Color.white);
-        playerPanel.add(weaponNameLabel);        
-
+        playerPanel.add(weaponNameLabel);
 
         window.setVisible(true);
     }
