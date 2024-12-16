@@ -83,8 +83,6 @@ public class Story {
 
         player.setPlayerName(20);
         String namePlayer = player.getPlayerName();
-        // int hpPlayer = player.getHp();
-        // player.setHp(hpPlayer);
         ui.mainTextArea.setText(nameNPC + ": Berhenti! Siapa kamu? Ada keperluan apa di kerajaan Jawa?");
         ui.choice1.setText("Hai, namaku " + namePlayer + ". Saya datang untuk mengambil misi.");
         ui.choice2.setText("Hah!? Kau tidak kenal siapa aku?");
@@ -96,43 +94,6 @@ public class Story {
         game.nextPosition3 = "attackPenjaga";
         game.nextPosition4 = "";
 
-        // if (hpPlayer == 20) {
-        // ui.mainTextArea.setText(nameNPC + ": Berhenti! Siapa kamu? Ada keperluan apa
-        // di kerajaan Jawa?");
-        // ui.choice1.setText("Hai, namaku " + namePlayer + ". Saya datang untuk
-        // mengambil misi.");
-        // ui.choice2.setText("Hah!? Kau tidak kenal siapa aku?");
-        // ui.choice3.setText("(Menonjok Penjaga)");
-        // ui.choice4.setText("");
-
-        // game.nextPosition1 = "guildPetualang";
-        // game.nextPosition2 = "crossRoad";
-        // game.nextPosition3 = "attackPenjaga";
-        // game.nextPosition4 = "";
-        // }else if (hpPlayer > 20) {
-        // ui.mainTextArea.setText(nameNPC + ": Oh kau sudah kembali. Bagaimana
-        // misinya?");
-        // ui.choice1.setText("Misi apa?");
-        // ui.choice2.setText("(Tidak menghiraukan)");
-        // ui.choice3.setText("(Menyerang Penjaga)");
-        // ui.choice4.setText("");
-
-        // game.nextPosition1 = "cityGate";
-        // game.nextPosition2 = "guildPetualang";
-        // game.nextPosition3 = "attackPenjaga";
-        // game.nextPosition4 = "";
-        // }else if (hpPlayer < 20) {
-        // ui.mainTextArea.setText(nameNPC + ": Kau kembali lagi hah!?");
-        // ui.choice1.setText("(Menyerang Penjaga)");
-        // ui.choice2.setText("Maafkan aku");
-        // ui.choice3.setText("");
-        // ui.choice4.setText("");
-
-        // game.nextPosition1 = "guildPetualang";
-        // game.nextPosition2 = "crossRoad";
-        // game.nextPosition3 = "attackPenjaga";
-        // game.nextPosition4 = "";
-        // }
     }
 
     public void attackPenjaga() {
