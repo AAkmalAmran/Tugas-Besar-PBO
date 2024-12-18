@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 17, 2024 at 08:50 PM
+-- Generation Time: Dec 18, 2024 at 04:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -81,9 +81,7 @@ CREATE TABLE `player` (
 --
 
 INSERT INTO `player` (`id_player`, `nama_player`, `id_weapon`) VALUES
-(4, 'Dora', 1),
-(8, 'Link', NULL),
-(12, 'Akmal', NULL);
+(15, 'Kakaja', 1);
 
 -- --------------------------------------------------------
 
@@ -107,7 +105,7 @@ INSERT INTO `weapon` (`id_weapon`, `nama_weapon`, `Damage`) VALUES
 (3, 'Long Sword', 12),
 (4, 'War Hammer', 8),
 (5, 'Spear', 6),
-(6, 'Hero Sword', 100);
+(6, 'Hero Sword', 500);
 
 --
 -- Indexes for dumped tables
@@ -160,7 +158,7 @@ ALTER TABLE `npc`
 -- AUTO_INCREMENT for table `player`
 --
 ALTER TABLE `player`
-  MODIFY `id_player` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_player` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `weapon`
