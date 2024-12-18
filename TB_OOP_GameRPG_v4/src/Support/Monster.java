@@ -10,7 +10,6 @@ public class Monster extends SuperNPC {
     private KoneksiDatabase db = new KoneksiDatabase();
 
     private String nama_monster;
-    private int hp;
     private int attack;
 
     // Constructor untuk membuat objek Monster
@@ -66,11 +65,6 @@ public class Monster extends SuperNPC {
     // Getter untuk nama monster
     public String getMonsterName() {
         return this.nama_monster;
-    }
-
-    // Getter untuk HP monster
-    public int getMonsterHP() {
-        return this.hp;
     }
 
     // Getter untuk DMG monster

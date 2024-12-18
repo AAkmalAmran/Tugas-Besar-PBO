@@ -5,9 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-
 public class Weapon extends SuperWeapon {
-
 
     private Connection con;
     private Statement stm;

@@ -83,4 +83,27 @@ public class Player {
             e.printStackTrace();
         }
     }
+
+    public void insertPlayer(String playerName) {
+        try (Connection conn = db.getConnection()) {
+            // Query untuk menambahkan player baru
+            String insertQuery = "INSERT INTO player (nama_player, id_weapon) VALUES (?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(insertQuery)) {
+                pstmt.setString(1, playerName); // Nama player
+                pstmt.setInt(2, 1); // Default id_weapon, misalnya 1 (bisa diubah sesuai kebutuhan)
+    
+                int rowsInserted = pstmt.executeUpdate();
+    
+                if (rowsInserted > 0) {
+                    System.out.println("Player '" + playerName + "' berhasil ditambahkan ke database.");
+                    this.playerName = playerName; // Set nama player ke instance
+                } else {
+                    System.out.println("Gagal menambahkan player '" + playerName + "' ke database.");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

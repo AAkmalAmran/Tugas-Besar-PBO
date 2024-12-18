@@ -36,9 +36,9 @@ public class Game {
                 case "CONFIRM":
                     String playerName = ui.characterNameField.getText();
                     if (playerName.isEmpty()) {
-                        // javax.swing.JOptionPane.showMessageDialog(null, "Please enter a name!");
                     } else {
                         player.setPlayerName(playerName);
+                        player.insertPlayer(playerName);
                         System.out.println("Character Name: " + playerName);
                         System.out.println();
                         vm.titleToTown();

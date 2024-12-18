@@ -30,11 +30,7 @@ public class Story {
 
         player.setIdWeapon(playerName);
 
-        // Gak mau muncul nama weapon nya
-        int idWw = player.getIdWeapon();
-
-        // Gak mau muncul nama weapon nya
-        Weapon weapon_name = new Weapon(idWw);
+        Weapon weapon_name = new Weapon(1);
 
         player.currentWeapon = weapon_name;
         ui.weaponNameLabel.setText(player.currentWeapon.name);
@@ -66,7 +62,7 @@ public class Story {
                 timur();
                 break;
             case "playerAttack":
-                playerAttack();
+                playerAttack(currentMonster);
                 break;
             case "monsterAttack":
                 monsterAttack();
@@ -129,7 +125,7 @@ public class Story {
         // Ngambil nama berdasarkan yg udah diinput
         String playerName = ui.characterNameField.getText();
 
-        ui.mainTextArea.setText(nameNPC + ": Siapa nama mu wahai sang pahlawan?");
+        ui.mainTextArea.setText(nameNPC + ": Tunggu! Siapa nama mu wahai sang pahlawan?");
         ui.choice1.setText("Namaku " + playerName);
         ui.choice2.setVisible(false);
         ui.choice3.setVisible(false);
@@ -157,7 +153,7 @@ public class Story {
         if (cincinBerlian == 0) {
 
             ui.mainTextArea.setText(nameNPC
-                    + ": Jika ingin masuk ke dalam kerajaan. Kamu harus membunuh Goblin yang ada di hutan bagian utara");
+                    + ": Jika ingin masuk ke dalam kerajaan. Kamu harus membunuh sebuah monster yang ada di hutan bagian utara");
             ui.choice1.setText("Baiklah");
             ui.choice2.setText("Menyerang Penjaga");
             ui.choice3.setText("");
@@ -170,7 +166,7 @@ public class Story {
         } else if (cincinBerlian == 1) {
             ui.mainTextArea.setText(nameNPC + ": Oh... Cincin ini adalah milik putri ku...\n" + nameNPC
                     + ": Jadi dia telah tiada ya...\n" + nameNPC
-                    + ": Terima kasih telah membalaskan dendam ku kepada goblin sialan itu. Kamu bisa menyimpan cincin itu.");
+                    + ": Terima kasih telah membalaskan dendam ku kepada monster sialan itu. Kamu bisa menyimpan cincin itu.");
             ui.choice1.setText("Turut berduka. Terimakasih");
             ui.choice2.setText("Mampus");
             ui.choice3.setText("");
@@ -246,10 +242,11 @@ public class Story {
 
     public void utara() {
 
-        currentMonster = new Monster(3);
+        int monsterRandom = new java.util.Random().nextInt(1, 7);
+        currentMonster = new Monster(monsterRandom);
 
         String monster = currentMonster.getMonsterName();
-        int monster_hp = currentMonster.getMonsterHP();
+        int monster_hp = currentMonster.getHp();
 
         ui.mainTextArea.setText(
                 "Kamu pergi ke arah utara. \n\nSesampainya disana, kamu melihat ada " + monster
@@ -282,50 +279,48 @@ public class Story {
     }
 
     public void timur() {
+        int weaponRandom = new java.util.Random().nextInt(2, 7); // ID senjata acak (0-5)
 
-        if (player.currentWeapon.id != 3) {
-            ui.mainTextArea.setText(
-                    "Kamu berjalan ke dalam hutan. Di depan, kamu melihat sebuah Long Sword tertancap di tanah.\n\n(Kamu mendapatkan Long Sword)");
+        // Jika senjata saat ini bukan senjata khusus (id != 3)
+        if (player.currentWeapon.id != weaponRandom) {
+            // Ganti senjata dengan yang baru
+            Weapon newWeapon = new Weapon(weaponRandom);
+            player.currentWeapon = newWeapon;
 
-            // Ganti Senjata
-            Weapon weapon_name = new Weapon(3);
-            player.currentWeapon = weapon_name;
+            // Update tampilan UI
             ui.weaponNameLabel.setText(player.currentWeapon.name);
-
-            ui.choice1.setText("Pergi ke arah Utara");
-            ui.choice2.setText("kembali");
-            ui.choice3.setText("");
-            ui.choice4.setText("");
-
-            game.nextPosition1 = "utara";
-            game.nextPosition2 = "crossRoad";
-            game.nextPosition3 = "";
-            game.nextPosition4 = "";
-        } else if ((player.currentWeapon.id == 3 || player.currentWeapon.id == 4 || player.currentWeapon.id == 5
-                || player.currentWeapon.id == 6) && player.currentWeapon.id != 1) {
             ui.mainTextArea.setText(
-                    "Kamu memutuskan untuk beristirahat sejenak di bawah pohon beringin.\n\n(Mendapatkan 3 HP)");
+                    "Kamu berjalan ke dalam hutan. Di depan, kamu melihat sebuah " + newWeapon.name
+                            + " tertancap di tanah.\n\n(Kamu mendapatkan " + newWeapon.name + ")");
+        }
+        // Jika senjata saat ini ID-nya 3, 4, 5, atau 6, tetapi bukan ID 1
+        else if (player.currentWeapon.id != 1) {
+            int newHp = new java.util.Random().nextInt(1, 50);
+            // Pemain mendapatkan tambahan HP
+            player.hp += newHp;
+            ui.hpNumberLabel.setText(String.valueOf(player.hp));
 
-            // Tambah HP
-            player.hp = player.hp + 10;
-            ui.hpNumberLabel.setText("" + player.hp);
-
-            ui.choice1.setText("Pergi ke arah Utara");
-            ui.choice2.setText("kembali");
-            ui.choice3.setText("");
-            ui.choice4.setText("");
-
-            game.nextPosition1 = "utara";
-            game.nextPosition2 = "crossRoad";
-            game.nextPosition3 = "";
-            game.nextPosition4 = "";
+            // Update tampilan UI
+            ui.mainTextArea.setText(
+                    "Kamu memutuskan untuk beristirahat sejenak di bawah pohon beringin.\n\n(Mendapatkan " + newHp
+                            + " HP)");
         }
 
+        // Set pilihan dan posisi berikutnya untuk UI
+        ui.choice1.setText("Pergi ke arah Utara");
+        ui.choice2.setText("Kembali");
+        ui.choice3.setText("");
+        ui.choice4.setText("");
+
+        game.nextPosition1 = "utara";
+        game.nextPosition2 = "crossRoad";
+        game.nextPosition3 = "";
+        game.nextPosition4 = "";
     }
 
     public void fight() {
         String nama_monster = currentMonster.getMonsterName();
-        int monster_hp = currentMonster.getMonsterHP();
+        int monster_hp = currentMonster.getHp();
 
         ui.mainTextArea.setText(nama_monster + ": " + monster_hp + "\n\nApa yang akan kamu lakukan?");
 
@@ -340,29 +335,33 @@ public class Story {
         game.nextPosition4 = "";
     }
 
-    public void playerAttack() {
-        Monster currentMonster = new Monster(3);
-        String nama_monster = currentMonster.getMonsterName();
-        int monster_hp = currentMonster.getMonsterHP();
+    public void playerAttack(Monster currentMonster) {
+        String namaMonster = currentMonster.getMonsterName();
+        int monsterHp = currentMonster.getHp();
 
-        int playerDamage = new java.util.Random().nextInt(player.currentWeapon.damage);
-        monster_hp -= playerDamage;
-        currentMonster.monsterHP(monster_hp); // Update HP monster
-        monster_hp = currentMonster.getMonsterHP(); // Ambil HP monster yang baru
+        // Hitung damage player secara acak
+        int playerDamage = new java.util.Random().nextInt(player.currentWeapon.damage) + 1;
 
+        // Kurangi HP monster
+        monsterHp -= playerDamage;
+        currentMonster.setHp(monsterHp);
+
+        // Update tampilan UI
         ui.mainTextArea.setText(
-                "Kamu menyerang " + nama_monster + ", kerusakan seranganmu sebesar " + playerDamage + "\n\n"
-                        + nama_monster + " HP: " + monster_hp);
+                "Kamu menyerang " + namaMonster + ", kerusakan seranganmu sebesar " + playerDamage + "\n\n"
+                        + namaMonster + " HP: " + Math.max(monsterHp, 0)); // Tampilkan HP monster minimum 0
 
+        // Atur pilihan di UI
         ui.choice1.setText(">");
         ui.choice2.setText("");
         ui.choice3.setText("");
         ui.choice4.setText("");
 
-        if (monster_hp > 0) {
-            game.nextPosition1 = "monsterAttack";
+        // Tentukan posisi permainan berikutnya
+        if (monsterHp > 0) {
+            game.nextPosition1 = "monsterAttack"; // Monster menyerang balik
         } else {
-            game.nextPosition1 = "win";
+            game.nextPosition1 = "win"; // Player menang
         }
     }
 
@@ -417,10 +416,6 @@ public class Story {
         game.nextPosition2 = "";
         game.nextPosition3 = "";
         game.nextPosition4 = "";
-    }
-
-    public void ending() {
-
     }
 
     public void backAgain() {
